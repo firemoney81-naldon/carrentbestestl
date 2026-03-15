@@ -1,23 +1,409 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+
+    <!-- JSON-LD 구조화 데이터: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "장기렌트카의 가장 큰 장점은 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "장기렌트카의 가장 큰 장점은 초기 비용 부담이 적다는 것입니다. 취득세, 등록세, 자동차 보험료, 자동차세 등 차량 구매 시 발생하는 모든 비용이 렌탈료에 포함되어 있어, 목돈 지출 없이 신차를 이용할 수 있습니다. 특히 유지 보수가 렌탈사에서 제공되므로 관리가 편리합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "장기렌트카 이용 시 단점은 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "주요 단점으로는 총 비용이 할부 구매보다 높을 수 있다는 점, 연간 주행거리 제한이 있다는 점, 계약 기간 동안 중도 해지 시 위약금이 발생한다는 점이 있습니다. 또한 '허' 번호판 사용에 대한 거부감이 있을 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "장기렌트카 업체별로 가격 차이가 큰 이유가 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "각 업체별로 차량 구매 조건, 금융 상품 조건, 할인율, 보험 요율 등이 다릅니다. 또한 장기렌트카 견적에 포함되는 정비 옵션이나 서비스(사은품, 현금지원 등)에 따라 최종 가격이 달라지므로, 여러 업체의 견적을 비교하는 것이 필수적입니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "장기렌트카를 저렴하게 이용할 수 있는 방법이 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "보증금을 활용하거나, 계약 기간을 48개월 이상으로 길게 설정하면 월 렌탈료를 낮출 수 있습니다. 또한 매년 진행되는 특가 프로모션이나 '사전 계약' 이벤트 등을 활용하면 평균 비용보다 저렴하게 가입할 수 있습니다. 장기렌트 전문 업체를 통해 여러 금융사의 상품을 비교하는 것도 중요합니다."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        /* CSS Variables for consistent color palette */
+        :root {
+            --primary-color: #0A2B4E; /* Deep Blue */
+            --secondary-color: #2F6FD5; /* Brighter Blue */
+            --accent-color: #2ECC71; /* Green Accent */
+            --text-color: #333; /* Dark Text */
+            --bg-light: #F7F9FC; /* Light Grey Background */
+            --bg-dark: #1E3A8A; /* Dark Blue Background */
+            --btn-cta: #FF6F00; /* Orange CTA */
+            --border-color: #e0e0e0; /* Light border */
+        }
+
+        /* Basic Reset and Typography */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+        
+        body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; background-color: var(--bg-light); color: var(--text-color); line-height: 1.8; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Header and Navigation */
+        header { background-color: #fff; padding: 20px; text-align: center; border-bottom: 2px solid #eee; }
+        header h1 { margin: 0; font-size: 2.5em; color: var(--primary-color); }
+        header h1 a { text-decoration: none; color: inherit; font-weight: 900; }
+
+        /* Hero Section (Main Landing Area) */
+        .hero { background: linear-gradient(135deg, var(--bg-dark), var(--primary-color)); color: #fff; text-align: center; padding: 80px 20px; }
+        .hero h1 { font-size: 3.8em; margin-bottom: 20px; font-weight: 900; line-height: 1.3; text-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
+        .hero p { font-size: 1.4em; margin-bottom: 40px; font-weight: 400; opacity: 0.9; }
+        
+        /* CTA Button */
+        .cta-btn { background-color: var(--btn-cta); color: #fff; padding: 18px 40px; font-size: 1.3em; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: background-color 0.3s, transform 0.2s; box-shadow: 0 6px 15px rgba(0,0,0,0.2); text-decoration: none; display: inline-block; }
+        .cta-btn:hover { background-color: #E65100; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+
+        /* Comparison Form Box (Visual prominence) */
+        .compare-form-box { background-color: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); margin-top: 40px; }
+        .compare-form-box h2 { color: var(--primary-color); text-align: center; margin-bottom: 25px; font-weight: 700; font-size: 2em; }
+        .compare-form-box p { text-align: center; margin-bottom: 30px; font-size: 1.1em; color: #555; }
+        .compare-form-box label { display: block; margin-bottom: 8px; font-weight: 500; color: #444; }
+        .compare-form-box input { width: 100%; padding: 14px; margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; font-size: 1em; }
+        .compare-form-box input:focus { border-color: var(--secondary-color); box-shadow: 0 0 5px rgba(47, 111, 213, 0.3); }
+
+        /* Content Sections */
+        .content-section { background-color: #fff; padding: 60px 0; margin-top: 30px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
+        .content-section h2 { font-size: 2.8em; color: var(--secondary-color); border-bottom: 3px solid var(--bg-light); padding-bottom: 20px; margin-bottom: 40px; text-align: center; font-weight: 700; }
+        .content-section h3 { font-size: 1.8em; color: var(--primary-color); margin-top: 40px; margin-bottom: 20px; border-left: 5px solid var(--accent-color); padding-left: 15px; font-weight: 600; }
+
+        /* Feature Grid (for pros/cons visualization) */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; text-align: center; margin-top: 30px; }
+        .feature-grid .item { background-color: var(--bg-light); padding: 30px; border-radius: 10px; transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid #ddd; }
+        .feature-grid .item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .feature-grid .item img { width: 80px; height: 80px; margin-bottom: 20px; }
+        .feature-grid .item h4 { font-size: 1.4em; color: var(--primary-color); margin-top: 0; margin-bottom: 10px; }
+        .feature-grid .item p { font-size: 1em; color: #555; line-height: 1.6; }
+        .feature-grid.pros .item { border-left: 5px solid var(--accent-color); }
+        .feature-grid.cons .item { border-left: 5px solid #E53935; } /* Red for cons */
+
+        /* Comparison Table (Cost Analysis) */
+        .comparison-table { width: 100%; border-collapse: collapse; margin-top: 30px; font-size: 1em; }
+        .comparison-table th, .comparison-table td { border: 1px solid #ddd; padding: 15px; text-align: center; }
+        .comparison-table th { background-color: var(--secondary-color); color: #fff; font-weight: 700; }
+        .comparison-table tr:nth-child(even) { background-color: #f9f9f9; }
+
+        /* Keyword List */
+        .keyword-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
+        .keyword-list li { background-color: var(--secondary-color); color: #fff; padding: 10px 20px; margin: 5px; border-radius: 20px; font-weight: 500; font-size: 0.9em; transition: background-color 0.3s; }
+        .keyword-list li:hover { background-color: var(--primary-color); cursor: pointer; }
+
+        /* FAQ Section */
+        .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
+        .faq-item h3 { cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 1.2em; color: var(--primary-color); font-weight: 500; }
+        .faq-item h3::after { content: '+'; font-size: 1.5em; color: var(--secondary-color); transition: transform 0.3s; font-weight: 700; }
+        .faq-item.active h3::after { content: '-'; transform: rotate(180deg); }
+        .faq-item p { display: none; padding: 15px 0 0; color: #555; line-height: 1.7; font-size: 1em; border-top: 1px dashed #eee; margin-top: 15px; }
+        .faq-item.active p { display: block; }
+        
+        /* Footer */
+        footer { background-color: var(--primary-color); color: #fff; text-align: center; padding: 40px 20px; font-size: 0.9em; border-top: 5px solid var(--btn-cta); }
+        footer a { color: #fff; text-decoration: none; margin: 0 10px; opacity: 0.8; }
+        footer a:hover { text-decoration: underline; opacity: 1; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5em; }
+            .hero p { font-size: 1.2em; }
+            .cta-btn { padding: 15px 30px; font-size: 1.1em; }
+            .compare-form-box { padding: 25px; }
+            .content-section h2 { font-size: 2em; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .keyword-list { justify-content: flex-start; }
+            .keyword-list li { margin: 3px; font-size: 0.8em; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><a href="/">장기렌트카 전문 비교</a></h1>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <!-- Section 1: Hero and Main CTA -->
+        <section class="hero">
+            <div class="container">
+                <h1>장기렌트카 장단점 완벽 분석, 2026년 최저가 견적 찾기!</h1>
+                <p>복잡한 장기렌트 가격과 비용 비교, 이제 전문가의 도움 없이 1분 만에 해결하세요.<br>다양한 장기렌트카 전문 업체의 견적을 실시간으로 비교하고, 가장 합리적인 조건을 추천받으세요.</p>
+                
+                <div class="compare-form-box">
+                    <h2>실시간 장기렌트카 비교견적 서비스</h2>
+                    <p>간단한 정보 입력으로 **저렴한 장기렌트** 상품을 찾아드립니다. 고객님의 상황에 맞는 정확한 **예상 금액**을 확인하세요.</p>
+                    <form action="#" method="post">
+                        <label for="carModel">원하는 차량 모델</label>
+                        <input type="text" id="carModel" placeholder="예: 쏘나타, K5, G80 등" required>
+                        <label for="name">이름</label>
+                        <input type="text" id="name" placeholder="이름을 입력하세요" required>
+                        <label for="phone">연락처</label>
+                        <input type="tel" id="phone" placeholder="휴대폰 번호를 입력하세요" required>
+                        <button type="submit" class="cta-btn">실시간 최저가 견적 받기</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: 장기렌트카의 장점 (Pros) -->
+        <section class="content-section">
+            <div class="container">
+                <h2>장기렌트카의 장점: 왜 많은 사람들이 선택할까요?</h2>
+                <p>
+                    **장기렌트카**를 선택하는 가장 큰 이유는 바로 '경제성과 편리성'입니다. 신차 구매 시 발생했던 복잡한 과정과 비용 부담을 줄여주기 때문에, 특히 초기 목돈 지출을 꺼리는 개인 사업자나 법인, 그리고 사회 초년생에게 인기가 많습니다.
+                </p>
+                <div class="feature-grid pros">
+                    <div class="item">
+                        <img src="https://images.pexels.com/photos/159844/car-concept-car-auto-vehicle-159844.jpeg?auto=compress&cs=tinysrgb&w=80" alt="초기 비용 절감 아이콘">
+                        <h4>초기 비용 최소화 (보증금/선납금 선택)</h4>
+                        <p>차량 구입 시 발생하는 취득세, 등록세, 공채 등 초기 비용 부담이 전혀 없습니다. 보증금 없는 무보증 상품도 많으며, 초기 **현금지원** 혜택을 제공하는 **장기렌트 전문 업체**도 있습니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://images.pexels.com/photos/386009/pexels-photo-386009.jpeg?auto=compress&cs=tinysrgb&w=80" alt="세금 절감 아이콘">
+                        <h4>세금 및 보험료 절감 (개인/법인 사업자 혜택)</h4>
+                        <p>자동차세와 보험료가 월 렌탈료에 모두 포함됩니다. 특히 사업자의 경우 월 렌탈료 전액을 손비 처리할 수 있어, 종합소득세 절감 효과가 커 **비용** 관리에 유리합니다. 일반 구매와 **차이점**이 분명합니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://images.pexels.com/photos/206889/pexels-photo-206889.jpeg?auto=compress&cs=tinysrgb&w=80" alt="사고 관리 편리 아이콘">
+                        <h4>사고 시 부담 최소화 (보험 할증 없음)</h4>
+                        <p>장기렌트카의 명의는 렌탈사로 되어 있어, 사고가 발생해도 개인 보험료가 할증되지 않습니다. 보험료 할증 걱정 없이 마음 편히 운전할 수 있습니다. 렌탈사에서 사고 처리도 대행해 줍니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://images.pexels.com/photos/1056525/pexels-photo-1056525.jpeg?auto=compress&cs=tinysrgb&w=80" alt="유지 관리 서비스 아이콘">
+                        <h4>편리한 차량 유지 관리 (정비 서비스)</h4>
+                        <p>정비 옵션을 선택하면 차량 점검, 소모품 교체 등을 렌탈사에서 전담합니다. 바쁜 현대인에게 **장기렌트**의 가장 큰 **장점** 중 하나입니다. **평균**적인 차량 관리 시간을 절약해 줍니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: 장기렌트카의 단점 (Cons) -->
+        <section class="content-section" style="background-color: #fcfcfc;">
+            <div class="container">
+                <h2>장기렌트카 단점: 가입 전 반드시 확인해야 할 사항</h2>
+                <p>
+                    **장기렌트카**가 모두에게 완벽한 선택지는 아닙니다. **장단점**을 명확히 파악하고 신중하게 **가입**을 결정해야 합니다. 특히 **저렴한곳**만 찾아다니기보다, 숨겨진 **단점**과 약관을 꼼꼼히 확인해야 합니다.
+                </p>
+                <div class="feature-grid cons">
+                    <div class="item">
+                        <img src="https://images.pexels.com/photos/1680140/pexels-photo-1680140.jpeg?auto=compress&cs=tinysrgb&w=80" alt="높은 총 비용 아이콘">
+                        <h4>총 비용 부담 (이자 비용 포함)</h4>
+                        <p>월 렌탈료에는 차량 가액 외에도 이자, 보험료, 세금 등이 포함되어 있습니다. 최종 **인수** 시점을 기준으로 보면 할부 구매보다 **총 비용**이 더 높을 수 있습니다. 정확한 **견적** 비교가 중요합니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://images.pexels.com/photos/1529360/pexels-photo-1529360.jpeg?auto=compress&cs=tinysrgb&w=80" alt="주행거리 제한 아이콘">
+                        <h4>연간 주행거리 제한</h4>
+                        <p>렌탈 계약 시 정한 연간 주행거리(1만km~4만km)를 초과하면 추가 비용이 발생합니다. 주행거리가 긴 운전자에게는 **장기렌트**의 **단점**이 될 수 있습니다. **후기**를 보면 이 부분에 대한 불만이 많습니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://images.pexels.com/photos/210146/pexels-photo-210146.jpeg?auto=compress&cs=tinysrgb&w=80" alt="중도 해지 위약금 아이콘">
+                        <h4>중도 해지 시 위약금 발생</h4>
+                        <p>계약 기간을 다 채우지 못하고 해지할 경우, 잔여 기간에 대한 높은 **위약금**이 부과됩니다. 개인의 상황 변화를 미리 **예상**하고 계약 기간을 정하는 것이 중요합니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://images.pexels.com/photos/97079/pexels-photo-97079.jpeg?auto=compress&cs=tinysrgb&w=80" alt="번호판 아이콘">
+                        <h4>'허', '하', '호' 번호판 사용</h4>
+                        <p>**장기렌트카**는 '허', '하', '호' 번호판을 사용합니다. 최근에는 인식 개선으로 큰 문제가 없지만, 일부 운전자에게는 **단점**으로 작용할 수 있습니다. **신규 가입** 시 고려해야 할 사항입니다.</p>
+                    </div>
+                </div>
+                <h3 style="margin-top: 60px;">장기렌트 VS 할부 구매, 비용 차이 비교 (2026년 기준)</h3>
+                <p>
+                    많은 분들이 **장기렌트**와 신차 할부 구매 중 어떤 것이 **비용**적으로 유리한지 궁금해합니다. 아래 표는 특정 모델(예: 쏘나타 2.0)을 기준으로 **장기렌트**와 할부 구매 시의 **총 비용**을 **비교**한 것입니다. 초기 비용, 보험료, 세금 등을 모두 포함했을 때의 **차이점**을 명확히 볼 수 있습니다.
+                </p>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>비교 항목</th>
+                            <th>장기렌트카 (48개월 기준)</th>
+                            <th>신차 할부 구매 (48개월 기준)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>초기 비용 (선수금/보증금 제외)</th>
+                            <td>0원 (취등록세, 보험료, 세금 없음)</td>
+                            <td>약 300~500만원 (취득세 7%, 등록세 등)</td>
+                        </tr>
+                        <tr>
+                            <th>월 납입금</th>
+                            <td>월 45만원 (렌탈료)</td>
+                            <td>월 50만원 (할부 원리금) + 보험료/세금 별도</td>
+                        </tr>
+                        <tr>
+                            <th>총 납입 비용 (4년)</th>
+                            <td>(45만원 * 48개월) + 유지비 포함 <br>총 2,160만원 + 유지관리비</td>
+                            <td>(50만원 * 48개월) + 초기 비용 + 보험/세금 <br>총 2,400만원 + @ (보험/세금)</td>
+                        </tr>
+                        <tr>
+                            <th>차량 유지 관리</th>
+                            <td>렌탈사 대행 (소모품 교환 포함)</td>
+                            <td>개인 부담</td>
+                        </tr>
+                        <tr>
+                            <th>보험료 할증</th>
+                            <td>없음</td>
+                            <td>개인 사고 이력에 따라 할증 적용</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="text-align: right; font-size: 0.9em; margin-top: 10px; color: #777;">*상기 표의 **금액**은 예시이며, 실제 **견적**은 운전자 조건 및 상품에 따라 달라질 수 있습니다.</p>
+            </div>
+        </section>
+
+        <!-- Section 4: Choosing the Right Long-Term Rental Company -->
+        <section class="content-section">
+            <div class="container">
+                <h2>장기렌트카 저렴한곳 찾는 팁: 똑똑하게 가입하기</h2>
+                <p>
+                    **장기렌트카**를 **저렴한곳**에서 **가입**하기 위해서는 단순히 **가격**만 보는 것이 아니라, 여러 **업체**의 **조건**을 종합적으로 **비교**해야 합니다. **2026년** 최신 정보를 바탕으로 **장기렌트**를 현명하게 선택하는 방법을 알려드립니다.
+                </p>
+
+                <div class="feature-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="item">
+                        <img src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=80" alt="비교견적 아이콘">
+                        <h4>1. 다양한 업체 **비교 견적** 필수</h4>
+                        <p>롯데렌터카, SK렌터카, 현대캐피탈 등 대형 렌탈사뿐만 아니라 중소 **전문 업체**까지 포함하여 최소 3곳 이상의 **견적**을 받아보세요. 저희 사이트는 **장기렌트카 순위**가 높은 여러 업체의 상품을 한 번에 **비교**해 드립니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://images.pexels.com/photos/103566/pexels-photo-103566.jpeg?auto=compress&cs=tinysrgb&w=80" alt="특가 프로모션 아이콘">
+                        <h4>2. **신규 가입** 프로모션 및 **할인** 혜택 활용</h4>
+                        <p>매월 진행되는 특가 프로모션이나 '즉시 출고' **할인** 상품을 이용하면 **평균** **가격**보다 훨씬 **저렴하게** **가입**할 수 있습니다. **현금지원**이나 **사은품** **혜택**을 제공하는 **전문 업체**도 많습니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&w=80" alt="인수형/반납형 선택 아이콘">
+                        <h4>3. 인수형/반납형 선택 (계약 만료 후 **차이점**)</h4>
+                        <p>계약 만료 시 차량을 반납할지, **인수**할지 미리 결정해야 합니다. **인수**를 염두에 둔다면 **잔존 가치**가 높은 상품을, 반납을 원한다면 월 **렌탈료**가 낮은 상품을 **추천**합니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://images.pexels.com/photos/1056521/pexels-photo-1056521.jpeg?auto=compress&cs=tinysrgb&w=80" alt="보증금 활용 아이콘">
+                        <h4>4. **보증금**과 **선납금**의 현명한 활용</h4>
+                        <p>**보증금**은 돌려받는 **금액**이지만 **선납금**은 미리 납부하는 **금액**입니다. 초기 **비용**을 줄이기 위해 선납금을 사용하는 경우도 많으나, **내돈내산** 투자 관점에서 어떤 것이 유리한지 꼼꼼히 계산해야 합니다.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 60px;">장기렌트카 업체별 주요 상품 및 특징 (2026년)</h3>
+                <p>
+                    국내 **장기렌트카 시장**은 경쟁이 치열하여 각 **업체**별로 다양한 **할인** 및 **혜택**을 제공하고 있습니다. **저렴한곳**을 찾기 위해선 **순위**가 높은 주요 **전문 업체**들의 **상품** 특징을 아는 것이 중요합니다.
+                </p>
+                <ul>
+                    <li><strong>롯데렌터카:</strong> 국내 1위 **장기렌트카** **전문 업체**. 차량 모델 다양성, 전국 200여 개 지점을 통한 정비 네트워크가 장점. **초기 비용** 없는 상품을 적극적으로 홍보하며 **신규 가입** 혜택이 큼.</li>
+                    <li><strong>SK렌터카:</strong> SK 그룹 계열사로 정비 서비스 품질이 우수함. **SKT** 통신사 **할인** 등 다양한 제휴 혜택이 특징. **비용** 절감 효과를 극대화할 수 있는 **상품**이 많음.</li>
+                    <li><strong>현대캐피탈:</strong> 완성차 제조사 계열 금융사로 신차 출고가 빠름. **장기렌트**와 리스 상품을 모두 취급하며, **초기 비용** 최소화 옵션을 통해 **저렴한** **가격**을 제공함.</li>
+                    <li><strong>KB캐피탈/하나캐피탈:</strong> 금융사 기반의 **장기렌트카** **전문 업체**. 금리 조건이 유리한 **상품**이 많고, **견적** 비교를 통해 **저렴한** **비용**을 찾아볼 수 있음.</li>
+                </ul>
+                <p style="text-align: right; font-size: 0.9em; margin-top: 10px; color: #777;">*더 자세한 **장단점** 및 **차이점**은 **전문 업체** 상담을 통해 확인하세요.</p>
+            </div>
+        </section>
+
+        <!-- Section 5: FAQs -->
+        <section class="content-section">
+            <div class="container">
+                <h2>자주 묻는 질문 (FAQ)</h2>
+                <div class="faq-item">
+                    <h3 id="q1">장기렌트카와 자동차 리스의 **차이점**은 무엇인가요?</h3>
+                    <p>
+                        **장기렌트**는 차량 소유주가 **렌트** 업체이며, '허' 번호판을 사용합니다. **비용** 처리 시 월 **렌탈료** 전체를 **비용**으로 인정받고, 보험료 할증이 없습니다. 반면 **리스**는 금융 상품의 성격이 강하며, '하', '호' 번호판 대신 일반 번호판을 사용할 수 있습니다. **장점**과 **단점**이 다르므로 **견적** 시 **차이점**을 정확히 비교해야 합니다.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="q2">개인 사업자가 **장기렌트카**를 이용할 경우 **비용** 처리는 어떻게 되나요?</h3>
+                    <p>
+                        개인 사업자는 **장기렌트** **가입** 시 월 **렌탈료** 전액을 **사업 경비**로 인정받아 세금을 절감할 수 있습니다. 2026년 기준으로 연간 한도 **금액**이 정해져 있으며, 관련 법령(세법)에 따라 **비용** 처리 규정이 달라질 수 있으므로 전문가와 상담하는 것이 좋습니다.
+                        <br>
+                        <a href="https://www.nts.go.kr/nts/main.do" target="_blank" rel="noopener noreferrer">국세청(NTS) 공식 웹사이트 바로가기</a>
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="q3">**장기렌트카** 계약 기간 중 **사고**가 발생하면 어떻게 되나요?</h3>
+                    <p>
+                        사고 발생 시 렌탈사에 연락하면 모든 처리를 대행해 줍니다. 개인 보험과 달리 보험료 할증이 없고, 계약 기간 중 **신규 가입** 시에도 보험료 변동이 없습니다. 다만, **견적** 시 '면책금'을 설정하며, 이 면책금 **금액** 내에서 사고 시 발생하는 **비용**을 부담하게 됩니다.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="q4">**장기렌트카** **사은품**이나 **현금지원** 혜택이 정말 있나요?</h3>
+                    <p>
+                        **장기렌트 전문 업체**나 비교 사이트에서는 **신규 가입** 고객을 대상으로 다양한 **사은품**이나 **현금지원** 이벤트를 진행합니다. 이러한 **혜택**은 **저렴한곳**을 찾는 중요한 기준이 될 수 있습니다. **견적** **비교** 시 **현금지원** **금액**까지 포함하여 **총 비용**을 **예상**해 보는 것이 좋습니다. **내돈내산** **후기**를 통해 어떤 **업체**가 **혜택**이 좋은지 확인해보세요.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 6: Recommended Keywords and Footer Links -->
+        <section class="content-section" style="background-color: #f7f9fc;">
+            <div class="container">
+                <h2>함께 많이 찾는 키워드 (연관 검색어 분석)</h2>
+                <p>장기렌트카를 검색하는 사용자들이 함께 궁금해하는 키워드를 모았습니다. 아래 키워드들을 참고하여 현명한 선택을 하세요.</p>
+                <ul class="keyword-list">
+                    <li>#장기렌트가격비교</li>
+                    <li>#장기렌트카단점</li>
+                    <li>#장기렌트장점</li>
+                    <li>#장기렌트비용</li>
+                    <li>#장기렌트차이점</li>
+                    <li>#장기렌트업체순위</li>
+                    <li>#장기렌트견적</li>
+                    <li>#장기렌트현금지원</li>
+                    <li>#장기렌트사은품</li>
+                    <li>#장기렌트신규가입혜택</li>
+                    <li>#장기렌트카추천</li>
+                    <li>#장기렌트싼곳</li>
+                    <li>#장기렌트저렴한곳</li>
+                    <li>#롯데렌터카장기렌트</li>
+                    <li>#SK렌터카장기렌트</li>
+                    <li>#현대캐피탈장기렌트</li>
+                    <li>#개인사업자장기렌트비용처리</li>
+                    <li>#장기렌트반납인수차이</li>
+                    <li>#장기렌트내돈내산후기</li>
+                    <li>#장기렌트보증금선납금차이</li>
+                    <li>#장기렌트보험료할증</li>
+                    <li>#장기렌트카평균금액</li>
+                    <li>#장기렌트예상비용</li>
+                    <li>#장기렌트카전문업체</li>
+                    <li>#장기렌트카할인</li>
+                    <li>#장기렌트카가입순위</li>
+                    <li>#장기렌트카블랙박스지원</li>
+                </ul>
+                <h3 style="margin-top: 60px;">정보 출처 및 신뢰성 확보 (외부 링크)</h3>
+                <p>장기렌트카 관련 정보는 지속적으로 변동하므로, 공신력 있는 기관의 정보를 참고하여 최종 결정을 내리세요.</p>
+                <ul>
+                    <li><a href="https://namu.wiki/w/%EC%9E%A5%EA%B8%B0%EB%A0%8C%ED%8A%B8%EC%B9%B4" target="_blank" rel="noopener noreferrer">나무위키: 장기렌터카 (Namuwiki)</a></li>
+                    <li><a href="https://www.car.go.kr" target="_blank" rel="noopener noreferrer">자동차 365: 차량정보 통합조회 (Car.go.kr)</a></li>
+                    <li><a href="https://www.kofia.or.kr/index.html" target="_blank" rel="noopener noreferrer">금융투자협회 (KOFIA)</a></li>
+                    <li><a href="https://www.moef.go.kr/index.do" target="_blank" rel="noopener noreferrer">대한민국 기획재정부 (세금 관련 정보)</a></li>
+                    <li><a href="https://www.gov.kr/portal/main" target="_blank" rel="noopener noreferrer">정부24: 자동차 등록 관련 서비스</a></li>
+                </ul>
+            </div>
+        </section>
     </main>
-  </body>
-</html>
+
+    <!-- JavaScript for basic interactivity (FAQ toggle) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item h3');
+            faqItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    item.parentElement.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+
+  
